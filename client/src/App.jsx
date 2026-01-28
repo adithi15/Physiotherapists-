@@ -22,7 +22,6 @@ function App() {
   );
 }
 
-// Simple Home component
 const Hero = () => (
   <div className="max-w-7xl mx-auto px-4 py-20 text-center">
     <h1 className="text-5xl font-extrabold text-gray-900 mb-6">Expert Physiotherapy, <span className="text-blue-600">Just a Click Away.</span></h1>

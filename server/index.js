@@ -14,7 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 // 2. USE the auth routes here:
-// This tells the server: "Any request starting with /api/auth should go to the auth.js file"
 app.use('/api/auth', authRoutes);
 
 

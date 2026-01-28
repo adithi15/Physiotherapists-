@@ -8,11 +8,10 @@ const UserSchema = new mongoose.Schema({
     contactNumber: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
     
-    // Patient Specific Fields
+
     age: { type: Number },
     gender: { type: String },
 
-    // Physiotherapist Specific Fields
     qualification: { type: String },
     specialization: { type: String },
     clinicAddress: { type: String },
