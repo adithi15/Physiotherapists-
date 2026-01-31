@@ -20,7 +20,7 @@ const UserDashboard = () => {
     }, []);
 
     const handleBook = async (time) => {
-    // console.log("User from Context:", user); // Check if user.id exists
+    console.log("User from Context:", user); // Check if user.id exists
     try {
         const bookingData = {
             patientId: user.id || user._id, // Try both just in case

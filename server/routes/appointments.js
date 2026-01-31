@@ -6,6 +6,7 @@ const User = require("../models/User");
 //  for BOOKING
 router.post("/book", async (req, res) => {
   try {
+      console.log("Data received from frontend:", req.body); // Check this in terminal
     const { patientId, physioId, date, timeSlot, amountPaid } = req.body;
     const existingAppointment = await Appointment.findOne({
       physioId,
