@@ -1,20 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken"); 
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-//register done
 router.post("/register", async (req, res) => {
   try {
-    const { role, name, email, password, contactNumber, ...extraData } =
-      req.body;
+    const { role, name, email, password, contactNumber, ...extraData } = req.body;
 
     let user = await User.findOne({ email });
     if (user) {
-      return res
-        .status(400)
-        .json({ message: "User with this email already exists." });
+      return res.status(400).json({ message: "User with this email already exists." });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -30,11 +26,9 @@ router.post("/register", async (req, res) => {
     });
 
     await user.save();
-    res
-      .status(201)
-      .json({ message: "User registered successfully! You can now log in." });
+    res.status(201).json({ message: "User registered successfully! You can now log in." });
   } catch (error) {
-    console.error(error);
+    console.error("Register Error:", error);
     res.status(500).json({ message: "Server error during registration." });
   }
 });
@@ -56,7 +50,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      { expiresIn: "1h" }
     );
 
     res.json({
@@ -68,9 +62,20 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
+    console.error("Login Error:", err);
     res.status(500).json({ error: "Server error during login" });
   }
 });
+
+router.get("/physiotherapists", async (req, res) => {
+  try {
+    const physios = await User.find({ role: "physiotherapist" }).select("-password");
+    res.json(physios);
+  } catch (error) {
+    console.error("Fetch Physios Error:", error);
+    res.status(500).json({ message: "Server error while fetching physiotherapists" });
+  }
+});
+
 
 module.exports = router;

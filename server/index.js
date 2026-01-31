@@ -3,21 +3,19 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// 1. IMPORT the auth routes here:
+// importing
 const authRoutes = require('./routes/auth'); 
 const appointmentRoutes = require('./routes/appointments');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// 2. USE the auth routes here:
 app.use('/api/auth', authRoutes);
+app.use('/api/appointments', appointmentRoutes); 
 
-
-// Database Connection
+//connecting database
 const uri = process.env.MONGO_URI;
 mongoose.connect(uri)
     .then(() => console.log("✅ MongoDB Connected Successfully!"))
@@ -25,8 +23,7 @@ mongoose.connect(uri)
         console.log("❌ DB Connection Error:");
         console.log(err.message);
     });
-
-// Basic Route
+    
 app.get('/', (req, res) => {
     res.send("Physio Server is Running");
 });

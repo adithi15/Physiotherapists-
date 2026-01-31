@@ -9,7 +9,7 @@ router.get('/physio/:id', async (req, res) => {
 
         const appts = await Appointment.find({ physioId: ptId })
             .populate('patientId', 'name contactNumber age gender') 
-            .sort({ createdAt: -1 }); // Show newest first
+            .sort({ createdAt: -1 }); 
 
         console.log(`Found ${appts.length} appointments in database for this ID.`);
         

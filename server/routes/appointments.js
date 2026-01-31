@@ -3,7 +3,7 @@ const router = express.Router();
 const Appointment = require("../models/Appointment");
 const User = require("../models/User"); 
 
-//  for BOOKING 
+//  for BOOKING
 router.post("/book", async (req, res) => {
   try {
     const { patientId, physioId, date, timeSlot, amountPaid } = req.body;
@@ -55,3 +55,5 @@ router.get("/user/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+module.exports = router;
